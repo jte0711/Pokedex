@@ -1,6 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { getPokemon } from "../api/pokeApi";
 
-const Card = () => {
+const Card = (props) => {
+  const [imageUrl, setImageUrl] = useState("");
+  const [type, setType] = useState([]);
+
+  const getDeets = async () => {
+    const pokeDeets = await getPokemon(props.name);
+    console.log(pokeDeets);
+    setImageUrl(pokeDeets.sprites.front_default); //url
+    setType(pokeDeets.types); //list, check api call
+  };
+
+  useEffect(() => {
+    getDeets();
+  }, [props]);
+
   return (
     <div
       style={{
@@ -24,7 +39,16 @@ const Card = () => {
           borderRight: "solid",
         }}
       >
-        Sprite
+        <img
+          src={imageUrl}
+          alt="Ivysaur sprite"
+          style={{
+            maxWidth: "100%",
+            maxHeight: "100%",
+            width: "auto",
+            height: "auto",
+          }}
+        />
       </div>
       <div
         style={{
@@ -46,7 +70,7 @@ const Card = () => {
             borderBottom: "solid",
           }}
         >
-          Name
+          <p>{props.name}</p>
         </div>
         <div
           style={{
@@ -57,7 +81,9 @@ const Card = () => {
             alignItems: "center",
           }}
         >
-          Types
+          {type.map((data) => (
+            <li>{data.type.name}</li>
+          ))}
         </div>
       </div>
     </div>
