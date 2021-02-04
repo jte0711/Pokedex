@@ -22,3 +22,24 @@ function getAllPokemons() {
       console.log(err);
     });
 }
+
+function getPokemon(pokeId) {
+  const localRes = localStorage.getitem(str(pokeId));
+  if (localRes != null) {
+    return JSON.parse(localRes);
+  }
+
+  const endpoint = apiUrl + "pokemon/" + str(pokeId);
+
+  axios
+    .get(endpoint)
+    .then((res) => {
+      localStorage.setItem(str(pokeId), JSON.stringify(res));
+      return res;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+export { getAllPokemons, getPokemon };
