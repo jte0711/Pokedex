@@ -4,7 +4,6 @@ const axios = require("axios");
 
 function getAllPokemons() {
   //check if pokemons stored in localStorage
-
   const localRes = localStorage.getItem(pokes);
   if (localRes != null) {
     return JSON.parse(localRes);
@@ -15,27 +14,27 @@ function getAllPokemons() {
   axios
     .get(endpoint)
     .then((res) => {
-      localStorage.setItem(pokes, JSON.stringify(res));
-      return res.result; //result only up to twenty, adjust limiter or make a code to iterate through the rest
+      localStorage.setItem(pokes, JSON.stringify(res.data.results));
+      return res.data.results; //result only up to twenty, adjust limiter or make a code to iterate through the rest
     })
     .catch((err) => {
       console.log(err);
     });
 }
 
-function getPokemon(pokeId) {
-  const localRes = localStorage.getitem(str(pokeId));
+function getPokemon(name) {
+  const localRes = localStorage.getItem(name);
   if (localRes != null) {
     return JSON.parse(localRes);
   }
 
-  const endpoint = apiUrl + "pokemon/" + str(pokeId);
+  const endpoint = apiUrl + "pokemon/" + name;
 
   axios
     .get(endpoint)
     .then((res) => {
-      localStorage.setItem(str(pokeId), JSON.stringify(res));
-      return res;
+      localStorage.setItem(name, JSON.stringify(res.data));
+      return res.data;
     })
     .catch((err) => {
       console.log(err);
