@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { getPokemon } from "../api/pokeApi";
 
 const PokemonDetails = (props) => {
@@ -6,9 +7,10 @@ const PokemonDetails = (props) => {
   const [type, setType] = useState();
   const [stats, setStats] = useState();
   const [moves, setMoves] = useState();
+  const { pokeId } = useParams();
 
   const initData = async () => {
-    const pokeDeets = await getPokemon("bulbasaur"); //replace with props.name
+    const pokeDeets = await getPokemon(pokeId); //replace with props.name
     console.log(pokeDeets);
     setImgUrl(pokeDeets.sprites.front_default); //url
     setType(pokeDeets.types); //list, check api call  }
@@ -24,6 +26,10 @@ const PokemonDetails = (props) => {
   useEffect(() => {
     initData();
   }, []);
+
+  useEffect(() => {
+    console.log(pokeId);
+  }, [pokeId]);
 
   return (
     <div
@@ -50,7 +56,7 @@ const PokemonDetails = (props) => {
           <img src={imgUrl} style={{ maxWidth: "100%", maxHeight: "100%" }} />
         </div>
         <div style={{ width: "100%", border: "solid" }}>
-          <div>bulbasaur</div>
+          <div>{pokeId}</div>
           <div>
             {type ? type.map((data) => <li>{data.type.name}</li>) : null}
           </div>
