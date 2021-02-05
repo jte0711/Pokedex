@@ -18,30 +18,17 @@ const PokemonList = () => {
 
   return (
     <div>
-      <div style={headerStyle}>
-        <div>Pokedex</div>
-        <div>Tabs div</div>
-      </div>
-      <div>
-        <ul>
-          {pokeList
-            ? pokeList.map((data) => (
-                <li>
-                  <Card name={data.name} apiUrl={data.url} />
-                </li>
-              ))
-            : null}
-        </ul>
-      </div>
+      <ul>
+        {pokeList
+          ? pokeList.map((data) => (
+              <li>
+                <Card name={data.name} apiUrl={data.url} />
+              </li>
+            ))
+          : null}
+      </ul>
     </div>
   );
-};
-
-const headerStyle = {
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-between",
-  paddingBottom: "50px",
 };
 
 export default PokemonList;
