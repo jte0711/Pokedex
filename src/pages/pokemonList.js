@@ -7,12 +7,10 @@ const PokemonList = () => {
 
   const initPokes = async () => {
     let pokes = await getAllPokemons();
-    console.log(pokes);
     setPokeList(pokes);
   };
 
   useEffect(() => {
-    console.log("rest");
     initPokes();
   }, []);
 
