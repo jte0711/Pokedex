@@ -19,20 +19,25 @@ function App() {
       url: "https://pokeapi.co/api/v2/pokemon/1/",
     },
   ]);
-  const [ownedPokemon, setOwnedPokemon] = useState([
-    { name: "squirtle", owned: 1 },
-  ]);
+  const [ownedPokemon, setOwnedPokemon] = useState({ squirtle: 1 });
 
   return (
     <PokeContext.Provider
       value={{
         myPokemon: myPokemon,
         setMyPokemon: (newData) => {
-          setMyPokemon(newData);
+          setMyPokemon([...myPokemon, newData]);
         },
         ownedPokemon: ownedPokemon,
         setOwnedPokemon: (newData) => {
-          setOwnedPokemon(newData);
+          let newCount = newData;
+          if (newData in ownedPokemon) {
+            newCount = ownedPokemon[newData] + 1;
+          }
+
+          setOwnedPokemon(
+            Object.assign({}, ownedPokemon, { newData: newCount })
+          );
         },
       }}
     >
