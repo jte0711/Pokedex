@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { getPokemon } from "../api/pokeApi";
 
 const Card = (props) => {
   const [imageUrl, setImageUrl] = useState("");
   const [type, setType] = useState([]);
+  const history = useHistory();
 
+  const goToPokemon = () => {
+    history.push("/pokemon/" + props.name);
+  };
   const getDeets = async () => {
     const pokeDeets = await getPokemon(props.name);
     console.log(pokeDeets);
@@ -27,6 +32,7 @@ const Card = (props) => {
         width: "250px",
         borderStyle: "solid",
       }}
+      onClick={goToPokemon}
     >
       <div
         style={{
