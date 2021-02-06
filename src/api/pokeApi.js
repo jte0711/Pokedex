@@ -14,8 +14,12 @@ function getAllPokemons() {
   axios
     .get(endpoint)
     .then((res) => {
-      localStorage.setItem(pokes, JSON.stringify(res.data.results));
-      return res.data.results; //result only up to twenty, adjust limiter or make a code to iterate through the rest
+      let result = res.data.results;
+      result = result.map((data) => {
+        return Object.assign(data, { owned: 0 });
+      });
+      localStorage.setItem(pokes, JSON.stringify(result));
+      return result; //result only up to twenty, adjust limiter or make a code to iterate through the rest
     })
     .catch((err) => {
       console.log(err);
