@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { getPokemon } from "../api/pokeApi";
 
 const WideCard = (props) => {
   const [imgUrl, setImgUrl] = useState("");
@@ -36,7 +37,7 @@ const WideCard = (props) => {
         <img src={imgUrl} />
       </div>
       <div style={{ display: "flex", flexDirection: "column", width: "75%" }}>
-        <p>Nickname</p>
+        <p>{props.nickname}</p>
         <ul>
           <li>Type 1</li>
           <li>Type 2</li>

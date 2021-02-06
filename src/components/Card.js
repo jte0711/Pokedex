@@ -71,6 +71,7 @@ const Card = (props) => {
           }}
         >
           <p>{props.name}</p>
+          <p>{props.owned}</p>
         </div>
         <div
           style={{
