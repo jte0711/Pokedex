@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import PokeContext from "../config/pokeContext";
+import WideCard from "../components/WideCard";
 
 const MyPokemonList = () => {
   const [pokeList, setPokeList] = useState();
+  const context = useContext(PokeContext);
 
   const initPokes = async () => {
-    let pokes = await getMyPokemon();
+    let pokes = context.myPokemon;
+
     console.log(pokes);
     setPokeList(pokes);
   };
@@ -19,7 +23,11 @@ const MyPokemonList = () => {
         {pokeList
           ? pokeList.map((data) => (
               <li>
-                <WideCard name={data.name} apiUrl={data.url} />
+                <WideCard
+                  nickname={data.nickname}
+                  name={data.name}
+                  apiUrl={data.url}
+                />
               </li>
             ))
           : null}
