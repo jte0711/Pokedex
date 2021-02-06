@@ -10,13 +10,12 @@ const PokemonList = () => {
   const checkOwned = (data) => {
     let myPoke = context.ownedPokemon;
 
-    for (let i = 0; i < myPoke.length; i++) {
-      for (let j = 0; j < data.length; j++) {
-        if (data[j].name == myPoke[i].name) {
-          data[j].owned = myPoke[i].owned;
-        }
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].name in myPoke) {
+        data[i].owned = myPoke[data[i].name];
       }
     }
+
     return data;
   };
 
@@ -29,7 +28,7 @@ const PokemonList = () => {
 
   useEffect(() => {
     initPokes();
-  }, []);
+  }, [context]);
 
   return (
     <div>
