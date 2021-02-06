@@ -1,20 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPokemon } from "../api/pokeApi";
+import PokeContext from "../config/pokeContext";
 
 const PokemonDetails = (props) => {
-  const [imgUrl, setImgUrl] = useState();
-  const [type, setType] = useState();
-  const [stats, setStats] = useState();
   const [moves, setMoves] = useState();
+  const [pokemon, setPokemon] = useState();
   const { pokeId } = useParams();
+  const context = useContext(PokeContext);
+
+  const catchPokemon = () => {
+    let pokeName = pokeId;
+    let pokeNickname = prompt("Please name your pokemon");
+    context.setMyPokemon({ name: pokeName, nickname: pokeNickname });
+  };
 
   const initData = async () => {
     const pokeDeets = await getPokemon(pokeId); //replace with props.name
+    setPokemon(pokeDeets);
     console.log(pokeDeets);
-    setImgUrl(pokeDeets.sprites.front_default); //url
-    setType(pokeDeets.types); //list, check api call  }
-    setStats(pokeDeets.stats);
+
     let temp = pokeDeets.moves;
     let maxMove = temp.length;
     if (temp.length > 4) {
@@ -24,12 +29,9 @@ const PokemonDetails = (props) => {
   };
 
   useEffect(() => {
+    console.log("init data");
     initData();
   }, []);
-
-  useEffect(() => {
-    console.log(pokeId);
-  }, [pokeId]);
 
   return (
     <div
@@ -53,20 +55,29 @@ const PokemonDetails = (props) => {
             alignItems: "center",
           }}
         >
-          <img src={imgUrl} style={{ maxWidth: "100%", maxHeight: "100%" }} />
+          {pokemon ? (
+            <img
+              src={pokemon.sprites.front_default}
+              style={{ maxWidth: "100%", maxHeight: "100%" }}
+            />
+          ) : null}
         </div>
         <div style={{ width: "100%", border: "solid" }}>
           <div>{pokeId}</div>
           <div>
-            {type ? type.map((data) => <li>{data.type.name}</li>) : null}
+            {pokemon
+              ? pokemon.types.map((data) => <li>{data.type.name}</li>)
+              : null}
           </div>
         </div>
-        <div style={{ width: "100%", border: "solid" }}>Button</div>
+        <div style={{ width: "100%", border: "solid" }}>
+          <button onClick={catchPokemon}>CATCH</button>
+        </div>
       </div>
       <div style={{ width: "60%", height: "100%", border: "solid" }}>
         <div style={{ width: "100%", border: "solid" }}>
-          {stats
-            ? stats.map((data) => (
+          {pokemon
+            ? pokemon.stats.map((data) => (
                 <div>
                   <span>{data.stat.name}</span>
                   <span>{data.base_stat}</span>
