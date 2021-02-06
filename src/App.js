@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import "./App.css";
 import PokemonDetails from "./pages/PokemonDetails";
-import PokemonList from "./pages/PokemonList";
+import PokemonList from "./pages/pokemonList";
 import MyPokemonList from "./pages/MyPokemonList";
 import PokeContext from "./config/pokeContext";
 import { useState } from "react";
