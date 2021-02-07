@@ -12,7 +12,7 @@ const Card = (props) => {
   };
   const getDeets = async () => {
     const pokeDeets = await getPokemon(props.name);
-    console.log(pokeDeets);
+    //console.log(pokeDeets);
     setImageUrl(pokeDeets.sprites.front_default); //url
     setType(pokeDeets.types); //list, check api call
   };

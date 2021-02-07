@@ -13,6 +13,7 @@ const PokemonDetails = (props) => {
     let pokeName = pokeId;
     let pokeNickname = prompt("Please name your pokemon");
     context.setMyPokemon({ name: pokeName, nickname: pokeNickname });
+    context.setOwnedPokemon(pokeName);
   };
 
   const initData = async () => {
