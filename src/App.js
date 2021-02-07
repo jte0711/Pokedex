@@ -41,7 +41,7 @@ function App() {
       }}
     >
       <Router>
-        <div className="App">
+        <div className="App" style={{ backgroundColor: "grey" }}>
           <div
             style={{
               display: "flex",
