@@ -20,9 +20,7 @@ const PokemonList = () => {
   };
 
   const initPokes = async () => {
-    // let pokes = await getAllPokemons();
     getAllPokemons().then((res) => {
-      //console.log("this is res ", res);
       let finalPokes = checkOwned(res);
       setPokeList(finalPokes);
     });

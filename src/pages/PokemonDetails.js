@@ -17,9 +17,8 @@ const PokemonDetails = (props) => {
   };
 
   const initData = async () => {
-    const pokeDeets = await getPokemon(pokeId); //replace with props.name
+    const pokeDeets = await getPokemon(pokeId);
     setPokemon(pokeDeets);
-    console.log(pokeDeets);
 
     let temp = pokeDeets.moves;
     let maxMove = temp.length;
@@ -30,7 +29,6 @@ const PokemonDetails = (props) => {
   };
 
   useEffect(() => {
-    console.log("init data");
     initData();
   }, []);
 
