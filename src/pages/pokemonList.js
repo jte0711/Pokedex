@@ -20,27 +20,27 @@ const PokemonList = () => {
   };
 
   const initPokes = async () => {
-    let pokes = await getAllPokemons();
-    let finalPokes = checkOwned(pokes);
-    console.log(finalPokes);
-    setPokeList(finalPokes);
+    // let pokes = await getAllPokemons();
+    getAllPokemons().then((res) => {
+      //console.log("this is res ", res);
+      let finalPokes = checkOwned(res);
+      setPokeList(finalPokes);
+    });
   };
 
   useEffect(() => {
     initPokes();
-  }, [context]);
+  }, []);
 
   return (
     <div>
-      <ul>
+      <div style={{ columns: "300px 4" }}>
         {pokeList
           ? pokeList.map((data) => (
-              <li>
-                <Card name={data.name} apiUrl={data.url} owned={data.owned} />
-              </li>
+              <Card name={data.name} apiUrl={data.url} owned={data.owned} />
             ))
           : null}
-      </ul>
+      </div>
     </div>
   );
 };
