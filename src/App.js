@@ -30,13 +30,12 @@ function App() {
         },
         ownedPokemon: ownedPokemon,
         setOwnedPokemon: (newData) => {
-          let newCount = newData;
+          let newCount = 1;
           if (newData in ownedPokemon) {
             newCount = ownedPokemon[newData] + 1;
           }
-
           setOwnedPokemon(
-            Object.assign({}, ownedPokemon, { newData: newCount })
+            Object.assign({}, ownedPokemon, { [newData]: newCount })
           );
         },
       }}
