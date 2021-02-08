@@ -44,7 +44,10 @@ function App() {
       }}
     >
       <Router>
-        <div className="App" style={{ backgroundColor: colors.background }}>
+        <div
+          className="App"
+          style={{ backgroundColor: colors.background, minHeight: "100vh" }}
+        >
           <div style={navbar}>
             <Link to="/" style={{ textDecoration: "none" }}>
               <p
