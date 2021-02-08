@@ -73,6 +73,7 @@ const PokemonDetails = (props) => {
         zIndex: 1,
         backgroundColor: "white",
         borderRadius: "10px",
+        margin: "auto",
       }}
     >
       <div
