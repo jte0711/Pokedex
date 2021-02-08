@@ -6,7 +6,7 @@ import MyPokemonList from "./pages/MyPokemonList";
 import PokeContext from "./config/pokeContext";
 import { useState } from "react";
 import { colors } from "./config/color";
-import { Icon, InlineIcon } from "@iconify/react";
+import { Icon } from "@iconify/react";
 import backpack28Filled from "@iconify/icons-fluent/backpack-28-filled";
 
 function App() {
@@ -22,7 +22,10 @@ function App() {
       url: "https://pokeapi.co/api/v2/pokemon/1/",
     },
   ]);
-  const [ownedPokemon, setOwnedPokemon] = useState({ squirtle: 1 });
+  const [ownedPokemon, setOwnedPokemon] = useState({
+    squirtle: 1,
+    bulbasaur: 1,
+  });
 
   return (
     <PokeContext.Provider
@@ -30,6 +33,17 @@ function App() {
         myPokemon: myPokemon,
         setMyPokemon: (newData) => {
           setMyPokemon([...myPokemon, newData]);
+        },
+        releasePokemon: (name, nickname) => {
+          let temp = [];
+          for (let i = 0; i < myPokemon.length; i++) {
+            if (myPokemon[i].nickname == nickname) {
+              temp = myPokemon.slice(i, 1);
+            }
+          }
+          let nCount = ownedPokemon["name"] - 1;
+          setMyPokemon(temp);
+          setOwnedPokemon(Object.assign({}, ownedPokemon, { [name]: nCount }));
         },
         ownedPokemon: ownedPokemon,
         setOwnedPokemon: (newData) => {
