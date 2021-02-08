@@ -22,20 +22,6 @@ async function getAllPokemons() {
   } catch (err) {
     console.log(err);
   }
-
-  // axios
-  //   .get(endpoint)
-  //   .then((res) => {
-  //     let result = res.data.results;
-  //     result = result.map((data) => {
-  //       return Object.assign(data, { owned: 0 });
-  //     });
-  //     localStorage.setItem(pokes, JSON.stringify(result));
-  //     return result; //result only up to twenty, adjust limiter or make a code to iterate through the rest
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
 }
 
 async function getPokemon(name) {
@@ -52,15 +38,38 @@ async function getPokemon(name) {
   } catch (err) {
     console.log(err);
   }
-  // axios
-  //   .get(endpoint)
-  //   .then((res) => {
-  //     localStorage.setItem(name, JSON.stringify(res.data));
-  //     return res.data;
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
 }
 
-export { getAllPokemons, getPokemon };
+async function getPokeMoves(name, url) {
+  const localRes = localStorage.getItem(name);
+  if (localRes != null) {
+    return JSON.parse(localRes);
+  }
+
+  const endpoint = url;
+  try {
+    const res = await axios.get(endpoint);
+    localStorage.setItem(name, JSON.stringify(res.data));
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function getPokeSpecies(name, url) {
+  const localRes = localStorage.getItem("species" + name);
+  if (localRes != null) {
+    return JSON.parse(localRes);
+  }
+
+  const endpoint = url;
+  try {
+    const res = await axios.get(endpoint);
+    localStorage.setItem("species" + name, JSON.stringify(res.data));
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export { getAllPokemons, getPokemon, getPokeMoves, getPokeSpecies };
