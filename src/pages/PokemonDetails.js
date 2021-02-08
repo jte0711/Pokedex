@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getPokemon } from "../api/pokeApi";
+import { getPokemon, getPokeMoves, getPokeSpecies } from "../api/pokeApi";
+import PokeType from "../components/PokeType";
 import { typeColor } from "../config/color";
 import PokeContext from "../config/pokeContext";
 
 const PokemonDetails = (props) => {
   const [moves, setMoves] = useState();
   const [pokemon, setPokemon] = useState();
+  const [flavourText, setFlavourText] = useState();
   const { pokeId } = useParams();
   const context = useContext(PokeContext);
 
@@ -17,18 +19,32 @@ const PokemonDetails = (props) => {
     context.setOwnedPokemon(pokeName);
   };
 
-  const initData = async () => {
+  const initFlTxt = (data) => {
+    getPokeSpecies(data.name, data.url).then((res) => {
+      setFlavourText(res.flavor_text_entries[0].flavor_text);
+    });
+  };
+
+  const initData = () => {
     // const pokeDeets = await getPokemon(pokeId);
     // setPokemon(pokeDeets);
 
-    getPokemon(pokeId).then((res) => {
+    getPokemon(pokeId).then(async (res) => {
       setPokemon(res);
       let temp = res.moves;
       let maxMove = temp.length;
       if (temp.length > 4) {
         maxMove = 4;
       }
-      setMoves(temp.slice(0, maxMove));
+      initFlTxt(res.species);
+      temp = temp.slice(0, maxMove);
+      temp = await Promise.all(
+        temp.map(async (el) => {
+          return await getPokeMoves(el.move.name, el.move.url);
+        })
+      );
+
+      setMoves(temp);
     });
 
     // let temp = pokeDeets.moves;
@@ -43,15 +59,20 @@ const PokemonDetails = (props) => {
     initData();
   }, []);
 
+  useEffect(() => {
+    console.log(moves);
+  });
+
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "row",
         width: "50%",
-        height: "500px",
+        height: "447px",
         zIndex: 1,
         backgroundColor: "white",
+        borderRadius: "10px",
       }}
     >
       <div
@@ -61,8 +82,8 @@ const PokemonDetails = (props) => {
           width: "40%",
           height: "100%",
           alignItems: "center",
-          paddingLeft: "25px",
-          paddingRight: "25px",
+          paddingLeft: "20px",
+          paddingRight: "20px",
         }}
       >
         <div
@@ -104,9 +125,7 @@ const PokemonDetails = (props) => {
             lineHeight: "16px",
           }}
         >
-          This is flavor text This is flavor text This is flavor text This is
-          flavor text This is flavor text This is flavor text This is flavor
-          text
+          {flavourText ? flavourText : null}
         </div>
         <div
           style={{
@@ -117,38 +136,24 @@ const PokemonDetails = (props) => {
         >
           {pokemon
             ? pokemon.types.map((data) => (
-                <div
-                  style={{
-                    width: "80px",
-                    height: "25px",
-                    borderRadius: "10px",
-                    backgroundColor: typeColor[data.type.name],
-                    color: "white",
-                    fontWeight: "700",
-                    fontSize: "12px",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    display: "flex",
-                    margin: "5px",
-                  }}
-                >
+                <PokeType colorName={data.type.name}>
                   {data.type.name.charAt(0).toUpperCase() +
                     data.type.name.slice(1)}
-                </div>
+                </PokeType>
               ))
             : null}
         </div>
         <div style={styleA}>
-          <div style={hw}>Height</div>
+          <div style={lTxt}>Height</div>
           {pokemon ? (
-            <div style={{ ...hw, fontWeight: "normal" }}>
-              {pokemon.height / 10}m
-            </div>
+            <div style={{ fontSize: "14px" }}>{pokemon.height / 10}m</div>
           ) : null}
         </div>
         <div style={styleA}>
-          <div style={{ ...hw, fontWeight: "normal" }}>Weight</div>
-          {pokemon ? <div style={hw}>{pokemon.weight / 10}kg</div> : null}
+          <div style={lTxt}>Weight</div>
+          {pokemon ? (
+            <div style={{ fontSize: "14px" }}>{pokemon.weight / 10}kg</div>
+          ) : null}
         </div>
         <button
           style={{
@@ -172,8 +177,8 @@ const PokemonDetails = (props) => {
         style={{
           width: "60%",
           height: "100%",
-          paddingLeft: "15px",
-          paddingRight: "15px",
+          paddingLeft: "20px",
+          paddingRight: "20px",
         }}
       >
         <div style={h2}>Stats</div>
@@ -184,7 +189,7 @@ const PokemonDetails = (props) => {
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <span>
+                  <span style={lTxt}>
                     {data.stat.name.charAt(0).toUpperCase() +
                       data.stat.name.slice(1, 11)}
                   </span>
@@ -199,19 +204,34 @@ const PokemonDetails = (props) => {
           {moves
             ? moves.map((data) => (
                 <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    paddingBottom: "15px",
+                  }}
                 >
                   <div>
-                    <p style={{ paddingBottom: "10px", margin: "0" }}>
-                      {data.move.name.charAt(0).toUpperCase() +
-                        data.move.name.slice(1)}
+                    <p
+                      style={{
+                        ...lTxt,
+                        paddingBottom: "10px",
+                        margin: "0",
+                        textAlign: "left",
+                        fontWeight: "normal",
+                      }}
+                    >
+                      {data.name.charAt(0).toUpperCase() + data.name.slice(1)}
                     </p>
                     <div style={{ display: "flex", flexDirection: "row" }}>
-                      <p style={mr}>Test</p>
-                      <p style={mr}>Test</p>
+                      <p style={{ ...mr, ...lTxt }}>PP: {data.pp}</p>
+                      <p style={{ ...mr, ...lTxt }}>Power: {data.power}</p>
                     </div>
                   </div>
-                  <div>Moves Type</div>
+                  <PokeType colorName={data.type.name}>
+                    {data.type.name.charAt(0).toUpperCase() +
+                      data.type.name.slice(1, 11)}
+                  </PokeType>
                 </div>
               ))
             : null}
@@ -219,6 +239,12 @@ const PokemonDetails = (props) => {
       </div>
     </div>
   );
+};
+
+const lTxt = {
+  fontWeight: "300",
+  fontStyle: "normal",
+  fontSize: "14px",
 };
 
 const styleA = {
@@ -240,15 +266,6 @@ const h2 = {
 const mr = {
   margin: "0",
   paddingRight: "10px",
-};
-
-const font = { fontFamily: "Roboto", fontStyle: "normal" };
-const hw = {
-  ...font,
-  paddingBottom: "10px",
-  fontWeight: "300",
-  fontSize: "14px",
-  lineHeight: "16px",
 };
 
 export default PokemonDetails;
