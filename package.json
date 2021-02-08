@@ -41,8 +41,7 @@
     ]
   },
   "devDependencies": {
-    "@iconify/icons-bytesize": "^1.1.0",
     "@iconify/icons-fluent": "^1.1.4",
-    "@iconify/react": "^1.1.4"
+    "@iconify/react": "^1.1.3"
   }
 }
