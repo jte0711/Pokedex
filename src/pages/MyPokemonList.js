@@ -19,19 +19,15 @@ const MyPokemonList = () => {
 
   return (
     <div>
-      <ul>
-        {pokeList
-          ? pokeList.map((data) => (
-              <li>
-                <WideCard
-                  nickname={data.nickname}
-                  name={data.name}
-                  apiUrl={data.url}
-                />
-              </li>
-            ))
-          : null}
-      </ul>
+      {pokeList
+        ? pokeList.map((data) => (
+            <WideCard
+              nickname={data.nickname}
+              name={data.name}
+              apiUrl={data.url}
+            />
+          ))
+        : null}
     </div>
   );
 };
