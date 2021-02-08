@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { getPokemon } from "../api/pokeApi";
 import { typeColor } from "../config/color";
+import PokeType from "./PokeType";
 
 const Card = (props) => {
   const [imageUrl, setImageUrl] = useState("");
@@ -109,23 +110,9 @@ const Card = (props) => {
           }}
         >
           {type.map((data) => (
-            <div
-              style={{
-                width: "80px",
-                height: "25px",
-                borderRadius: "10px",
-                backgroundColor: typeColor[data.type.name],
-                color: "white",
-                fontWeight: "700",
-                fontSize: "12px",
-                justifyContent: "center",
-                alignItems: "center",
-                display: "flex",
-                marginBottom: "10px",
-              }}
-            >
+            <PokeType colorName={data.type.name}>
               {data.type.name.toUpperCase()}
-            </div>
+            </PokeType>
           ))}
         </div>
       </div>
