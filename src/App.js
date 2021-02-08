@@ -41,13 +41,23 @@ function App() {
       }}
     >
       <Router>
-        <div className="App" style={{ backgroundColor: "grey" }}>
+        <div
+          className="App"
+          style={{
+            backgroundColor: "grey",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            minHeight: "100%",
+          }}
+        >
           <div
             style={{
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
               paddingBottom: "50px",
+              width: "100%",
             }}
           >
             <Link to="/">Pokedex</Link>
