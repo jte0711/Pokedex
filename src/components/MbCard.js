@@ -50,7 +50,7 @@ const MbCard = (props) => {
         <img src={imageUrl} />
       </div>
       <div>
-        <p style={{ margin: "0px" }}>Charizard</p>
+        <p style={{ margin: "0px" }}>{props.name}</p>
       </div>
     </div>
   );
