@@ -28,7 +28,7 @@ const Card = (props) => {
         flexDirection: "row",
         height: "150px",
         width: "250px",
-        marginBottom: "50px",
+        marginBottom: "20px",
         borderRadius: "10px",
         backgroundColor: "white",
       }}
