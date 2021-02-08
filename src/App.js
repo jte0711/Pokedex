@@ -5,6 +5,9 @@ import PokemonList from "./pages/pokemonList";
 import MyPokemonList from "./pages/MyPokemonList";
 import PokeContext from "./config/pokeContext";
 import { useState } from "react";
+import { colors } from "./config/color";
+import { Icon, InlineIcon } from "@iconify/react";
+import backpack28Filled from "@iconify/icons-fluent/backpack-28-filled";
 
 function App() {
   const [myPokemon, setMyPokemon] = useState([
@@ -41,27 +44,40 @@ function App() {
       }}
     >
       <Router>
-        <div
-          className="App"
-          style={{
-            backgroundColor: "grey",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            minHeight: "100%",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingBottom: "50px",
-              width: "100%",
-            }}
-          >
-            <Link to="/">Pokedex</Link>
-            <Link to="/mypokemon">My Pokemons</Link>
+        <div className="App" style={{ backgroundColor: colors.background }}>
+          <div style={navbar}>
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <p
+                className="logo"
+                style={{
+                  color: colors.pokeGold,
+                  paddingTop: "25px",
+                  paddingBottom: "25px",
+                }}
+              >
+                POKEMON
+              </p>
+            </Link>
+            <Link to="/mypokemon">
+              <div
+                style={{
+                  width: "100px",
+                  height: "50px",
+                  background: "#FFDE00",
+                  border: "2px solid #3B4CCA",
+                  boxSizing: "border-box",
+                  borderRadius: "25px",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  display: "flex",
+                }}
+              >
+                <Icon
+                  style={{ width: "30px", height: "30px" }}
+                  icon={backpack28Filled}
+                />
+              </div>
+            </Link>
           </div>
           <Switch>
             <Route exact path="/">
@@ -80,4 +96,14 @@ function App() {
   );
 }
 
+const navbar = {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  paddingLeft: "25px",
+  paddingRight: "25px",
+  marginBottom: "50px",
+  backgroundColor: colors.navbar,
+};
 export default App;

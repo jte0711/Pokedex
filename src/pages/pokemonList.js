@@ -31,8 +31,15 @@ const PokemonList = () => {
   }, []);
 
   return (
-    <div>
-      <div style={{ columns: "300px 4" }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        paddingLeft: "25px",
+        paddingRight: "25px",
+      }}
+    >
+      <div style={{ columnCount: 5 }}>
         {pokeList
           ? pokeList.map((data) => (
               <Card name={data.name} apiUrl={data.url} owned={data.owned} />
@@ -42,5 +49,4 @@ const PokemonList = () => {
     </div>
   );
 };
-
 export default PokemonList;
