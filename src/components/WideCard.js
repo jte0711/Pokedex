@@ -1,14 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { getPokemon } from "../api/pokeApi";
+import { colors } from "../config/color";
+import PokeContext from "../config/pokeContext";
+import PokeType from "./PokeType";
+import ReleaseButton from "./ReleaseButton";
 
 const WideCard = (props) => {
-  const [imgUrl, setImgUrl] = useState("");
   const [type, setType] = useState([]);
+  const [poke, setPoke] = useState();
+  const context = useContext(PokeContext);
+
+  const releaseHandler = () => {
+    console.log("called");
+    context.releasePokemon(props.name, props.nickname);
+  };
 
   const initPoke = async () => {
+    //Get Pokemon data
     const pokeDeets = await getPokemon(props.name);
-    //console.log(pokeDeets);
-    setImgUrl(pokeDeets.sprites.front_default); //url
+    setPoke(pokeDeets);
     setType(pokeDeets.types); //list, check api call
   };
 
@@ -21,8 +31,11 @@ const WideCard = (props) => {
       style={{
         display: "flex",
         flexDirection: "row",
-        width: "40%",
-        border: "solid",
+        width: "500px",
+        height: "150px",
+        backgroundColor: "white",
+        marginBottom: "10px",
+        borderRadius: "10px",
       }}
     >
       <div
@@ -30,11 +43,10 @@ const WideCard = (props) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          borderRight: "solid",
           width: "25%",
         }}
       >
-        <img src={imgUrl} />
+        <img src={poke ? poke.sprites.front_default : null} />
       </div>
       <div
         style={{
@@ -90,6 +102,16 @@ const WideCard = (props) => {
       </div>
     </div>
   );
+};
+
+const hBar = {
+  height: "15px",
+  backgroundColor: colors.hp,
+  borderRadius: "20px",
+};
+
+const pad = {
+  padding: "0 20px 0 20px",
 };
 
 export default WideCard;

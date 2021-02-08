@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { getAllPokemons } from "../api/pokeApi";
 import Card from "../components/Card";
-import MbCard from "../components/MbCard";
 import PokeContext from "../config/pokeContext";
 
 const PokemonList = () => {
