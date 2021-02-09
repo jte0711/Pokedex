@@ -13,9 +13,27 @@ const PokemonDetails = (props) => {
   const { pokeId } = useParams();
   const context = useContext(PokeContext);
 
+  const nameIsTaken = (nickname) => {
+    for (let i = 0; i < context.myPokemon.length; i++) {
+      if (nickname == context.myPokemon[i].nickname) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   const catchPokemon = () => {
+    if (Math.random() < 0.5) {
+      alert(pokeId.charAt(0).toUpperCase() + pokeId.slice(1) + " run away!");
+      return;
+    }
     let pokeName = pokeId;
     let pokeNickname = prompt("Please name your pokemon");
+    console.log(nameIsTaken(pokeNickname));
+    if (nameIsTaken(pokeNickname)) {
+      alert("Nickname is used by other Pokemon");
+      return;
+    }
     context.setMyPokemon({ name: pokeName, nickname: pokeNickname });
     context.setOwnedPokemon(pokeName);
   };

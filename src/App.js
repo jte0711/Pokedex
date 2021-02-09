@@ -21,12 +21,12 @@ function App() {
   const [myPokemon, setMyPokemon] = useState([
     {
       name: "squirtle",
-      nickname: "turtle",
+      nickname: "Turtle",
       url: "https://pokeapi.co/api/v2/pokemon/7/",
     },
     {
       name: "bulbasaur",
-      nickname: "moving plant",
+      nickname: "Moving plant",
       url: "https://pokeapi.co/api/v2/pokemon/1/",
     },
   ]);

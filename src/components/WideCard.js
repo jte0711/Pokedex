@@ -55,7 +55,7 @@ const WideCard = (props) => {
           }}
         >
           <p style={{ fontSize: "18px", fontStyle: "bold" }}>
-            {props.nickname.charAt(0).toUpperCase() + props.nickname.slice(1)}
+            {props.nickname}
           </p>
           <ReleaseButton size={"20px"} clickHandler={releaseHandler} />
         </div>
