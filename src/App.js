@@ -16,7 +16,13 @@ import {
   NavbarToggler,
   NavItem,
 } from "reactstrap";
-import { catchPokemon, getMyPokemon, releasePokemon } from "./api/myPoke";
+import {
+  catchPokemon,
+  putOwnedPokemon,
+  getMyPokemon,
+  releasePokemon,
+  getOwnedPokemon,
+} from "./api/myPoke";
 
 function App() {
   const [myPokemon, setMyPokemon] = useState([]);
@@ -27,17 +33,9 @@ function App() {
 
   useEffect(() => {
     let temp = getMyPokemon();
+    let ownTemp = getOwnedPokemon();
+    setOwnedPokemon(ownTemp);
     setMyPokemon(temp);
-
-    let tempOwn = ownedPokemon;
-    for (let i = 0; i < temp.length; i++) {
-      if (temp[i] in tempOwn) {
-        tempOwn[temp[i]] += 1;
-        continue;
-      }
-      tempOwn[temp[i]] = 1;
-    }
-    setOwnedPokemon(tempOwn);
   }, []);
 
   return (
@@ -58,8 +56,10 @@ function App() {
             }
           }
           let nCount = ownedPokemon[name] - 1;
+          let newOwn = Object.assign({}, ownedPokemon, { [name]: nCount });
+          putOwnedPokemon(newOwn);
           setMyPokemon(temp);
-          setOwnedPokemon(Object.assign({}, ownedPokemon, { [name]: nCount }));
+          setOwnedPokemon(newOwn);
         },
         ownedPokemon: ownedPokemon,
         setOwnedPokemon: (newData) => {
@@ -67,9 +67,9 @@ function App() {
           if (newData in ownedPokemon) {
             newCount = ownedPokemon[newData] + 1;
           }
-          setOwnedPokemon(
-            Object.assign({}, ownedPokemon, { [newData]: newCount })
-          );
+          let newOwn = Object.assign({}, ownedPokemon, { [newData]: newCount });
+          putOwnedPokemon(newOwn);
+          setOwnedPokemon(newOwn);
         },
       }}
     >
@@ -96,8 +96,8 @@ function App() {
               marginBottom: "25px",
             }}
           >
-            <NavbarBrand href="/" className="mr-auto">
-              <Link to="/" style={{ textDecoration: "none" }}>
+            <NavbarBrand className="mr-auto">
+              <Link to="/Pokedex" style={{ textDecoration: "none" }}>
                 <p
                   className="logo"
                   style={{
@@ -146,7 +146,7 @@ function App() {
           </Navbar>{" "}
           {/* <div style={navbar}></div> */}
           <Switch>
-            <Route exact path="/">
+            <Route exact path="/Pokedex">
               <PokemonList />
             </Route>
             <Route exact path="/pokemon/:pokeId">
