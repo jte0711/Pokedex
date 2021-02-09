@@ -18,22 +18,8 @@ import {
 } from "reactstrap";
 
 function App() {
-  const [myPokemon, setMyPokemon] = useState([
-    {
-      name: "squirtle",
-      nickname: "Turtle",
-      url: "https://pokeapi.co/api/v2/pokemon/7/",
-    },
-    {
-      name: "bulbasaur",
-      nickname: "Moving plant",
-      url: "https://pokeapi.co/api/v2/pokemon/1/",
-    },
-  ]);
-  const [ownedPokemon, setOwnedPokemon] = useState({
-    squirtle: 1,
-    bulbasaur: 1,
-  });
+  const [myPokemon, setMyPokemon] = useState([]);
+  const [ownedPokemon, setOwnedPokemon] = useState({});
   const [collapsed, setCollapsed] = useState(true);
 
   const toggleNavbar = () => setCollapsed(!collapsed);
@@ -45,15 +31,16 @@ function App() {
           setMyPokemon([...myPokemon, newData]);
         },
         releasePokemon: (name, nickname) => {
-          let temp = [];
+          let temp = myPokemon;
           for (let i = 0; i < myPokemon.length; i++) {
             if (myPokemon[i].nickname == nickname) {
-              temp = myPokemon.slice(i, 1);
+              temp.splice(i, 1);
+              break;
             }
           }
-          let nCount = ownedPokemon["name"] - 1;
+          let nCount = ownedPokemon[name] - 1;
           setMyPokemon(temp);
-          setOwnedPokemon(Object.assign({}, ownedPokemon, { [name]: nCount }));
+          setOwnedPokemon(Object.assign({}, ownedPokemon, { [name]: nCount });
         },
         ownedPokemon: ownedPokemon,
         setOwnedPokemon: (newData) => {

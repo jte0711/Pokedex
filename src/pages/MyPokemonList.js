@@ -6,27 +6,21 @@ const MyPokemonList = () => {
   const [pokeList, setPokeList] = useState();
   const context = useContext(PokeContext);
 
-  const initPokes = async () => {
-    let pokes = context.myPokemon;
-
-    console.log(pokes);
-    setPokeList(pokes);
-  };
-
   useEffect(() => {
-    initPokes();
-  }, []);
+    setPokeList(context.myPokemon);
+  }, [context]);
 
   return (
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       {pokeList
-        ? pokeList.map((data) => (
+        ? pokeList.map((data, index) => (
             <WideCard
               nickname={data.nickname}
               name={data.name}
               apiUrl={data.url}
+              key={index}
             />
           ))
         : null}

@@ -5,7 +5,12 @@ import { colors } from "../config/color";
 
 const ReleaseButton = (props) => {
   return (
-    <button style={icLeave} onClick={props.clickHandler}>
+    <button
+      style={icLeave}
+      onClick={() => {
+        props.clickHandler();
+      }}
+    >
       <Icon icon={signOut} style={{ fontSize: props.size }} />
     </button>
   );
