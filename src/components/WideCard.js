@@ -11,7 +11,6 @@ const WideCard = (props) => {
   const context = useContext(PokeContext);
 
   const releaseHandler = () => {
-    console.log("called");
     context.releasePokemon(props.name, props.nickname);
   };
 
@@ -27,17 +26,7 @@ const WideCard = (props) => {
   }, [props]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        width: "500px",
-        height: "150px",
-        backgroundColor: "white",
-        marginBottom: "10px",
-        borderRadius: "10px",
-      }}
-    >
+    <div style={mbCard}>
       <div
         style={{
           display: "flex",
@@ -114,4 +103,17 @@ const pad = {
   padding: "0 20px 0 20px",
 };
 
+const mbCard = {
+  ...card,
+  width: "100%",
+};
+const card = {
+  display: "flex",
+  flexDirection: "row",
+  width: "500px",
+  height: "150px",
+  backgroundColor: "white",
+  marginBottom: "10px",
+  borderRadius: "10px",
+};
 export default WideCard;

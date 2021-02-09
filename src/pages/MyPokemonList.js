@@ -18,13 +18,16 @@ const MyPokemonList = () => {
   }, []);
 
   return (
-    <div>
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       {pokeList
         ? pokeList.map((data) => (
             <WideCard
               nickname={data.nickname}
               name={data.name}
               apiUrl={data.url}
+              mb={true}
             />
           ))
         : null}
