@@ -1,4 +1,4 @@
-import { mypokes } from "../config/env";
+import { mypokes, ownPokes } from "../config/env";
 
 const catchPokemon = (data) => {
   let temp = {
@@ -15,7 +15,6 @@ const catchPokemon = (data) => {
 };
 const getMyPokemon = () => {
   let temp = localStorage.getItem(mypokes);
-  console.log(JSON.parse(temp));
   return temp ? JSON.parse(temp) : [];
 };
 const releasePokemon = async (data) => {
@@ -30,4 +29,19 @@ const releasePokemon = async (data) => {
   localStorage.setItem(mypokes, JSON.stringify(temp));
 };
 
-export { catchPokemon, getMyPokemon, releasePokemon };
+const getOwnedPokemon = () => {
+  let temp = localStorage.getItem(ownPokes);
+  return temp ? JSON.parse(temp) : {};
+};
+
+const putOwnedPokemon = (newData) => {
+  localStorage.setItem(ownPokes, JSON.stringify(newData));
+};
+
+export {
+  catchPokemon,
+  getMyPokemon,
+  releasePokemon,
+  getOwnedPokemon,
+  putOwnedPokemon,
+};

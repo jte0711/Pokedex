@@ -3,13 +3,11 @@ import { useHistory } from "react-router-dom";
 import { getPokemon } from "../api/pokeApi";
 import { typeColor } from "../config/color";
 import PokeType from "./PokeType";
-import useIsMobile from "../hooks/useIsMobile";
 
 const Card = (props) => {
   const [imageUrl, setImageUrl] = useState("");
   const [type, setType] = useState([]);
   const history = useHistory();
-  const isMb = useIsMobile(426);
 
   const goToPokemon = () => {
     history.push("/pokemon/" + props.name);

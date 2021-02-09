@@ -30,7 +30,6 @@ const PokemonDetails = (props) => {
     }
     let pokeName = pokeId;
     let pokeNickname = prompt("Please name your pokemon");
-    console.log(nameIsTaken(pokeNickname));
     if (nameIsTaken(pokeNickname)) {
       alert("Nickname is used by other Pokemon");
       return;
@@ -78,10 +77,6 @@ const PokemonDetails = (props) => {
   useEffect(() => {
     initData();
   }, []);
-
-  useEffect(() => {
-    console.log(moves);
-  });
 
   return (
     <div

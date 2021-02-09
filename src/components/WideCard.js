@@ -84,7 +84,6 @@ const WideCard = (props) => {
           }}
         >
           {type.map((data) => {
-            console.log(data);
             return (
               <PokeType colorName={data.type.name}>
                 {data.type.name.toUpperCase()}
