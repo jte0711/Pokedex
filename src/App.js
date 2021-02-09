@@ -76,7 +76,11 @@ function App() {
       <Router>
         <div
           className="App"
-          style={{ backgroundColor: colors.background, minHeight: "100vh" }}
+          style={{
+            backgroundColor: colors.background,
+            minHeight: "100vh",
+            paddingBottom: "25px",
+          }}
         >
           <Navbar
             color="faded"
@@ -89,7 +93,7 @@ function App() {
               alignItems: "center",
               paddingLeft: "25px",
               paddingRight: "25px",
-              marginBottom: "50px",
+              marginBottom: "25px",
             }}
           >
             <NavbarBrand href="/" className="mr-auto">
