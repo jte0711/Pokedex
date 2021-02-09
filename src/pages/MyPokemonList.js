@@ -12,7 +12,13 @@ const MyPokemonList = () => {
 
   return (
     <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        paddingLeft: "25px",
+        paddingRight: "25px",
+      }}
     >
       {pokeList
         ? pokeList.map((data, index) => (
