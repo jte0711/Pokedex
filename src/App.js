@@ -8,6 +8,14 @@ import { useState } from "react";
 import { colors } from "./config/color";
 import { Icon } from "@iconify/react";
 import backpack28Filled from "@iconify/icons-fluent/backpack-28-filled";
+import {
+  Collapse,
+  Nav,
+  Navbar,
+  NavbarBrand,
+  NavbarToggler,
+  NavItem,
+} from "reactstrap";
 
 function App() {
   const [myPokemon, setMyPokemon] = useState([
@@ -26,7 +34,9 @@ function App() {
     squirtle: 1,
     bulbasaur: 1,
   });
+  const [collapsed, setCollapsed] = useState(true);
 
+  const toggleNavbar = () => setCollapsed(!collapsed);
   return (
     <PokeContext.Provider
       value={{
@@ -62,40 +72,69 @@ function App() {
           className="App"
           style={{ backgroundColor: colors.background, minHeight: "100vh" }}
         >
-          <div style={navbar}>
-            <Link to="/" style={{ textDecoration: "none" }}>
-              <p
-                className="logo"
-                style={{
-                  color: colors.pokeGold,
-                  paddingTop: "25px",
-                  paddingBottom: "25px",
-                }}
-              >
-                POKEMON
-              </p>
-            </Link>
-            <Link to="/mypokemon">
-              <div
-                style={{
-                  width: "100px",
-                  height: "50px",
-                  background: "#FFDE00",
-                  border: "2px solid #3B4CCA",
-                  boxSizing: "border-box",
-                  borderRadius: "25px",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  display: "flex",
-                }}
-              >
-                <Icon
-                  style={{ width: "30px", height: "30px" }}
-                  icon={backpack28Filled}
-                />
-              </div>
-            </Link>
-          </div>
+          <Navbar
+            color="faded"
+            light
+            expand="md"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              paddingLeft: "25px",
+              paddingRight: "25px",
+              marginBottom: "50px",
+            }}
+          >
+            <NavbarBrand href="/" className="mr-auto">
+              <Link to="/" style={{ textDecoration: "none" }}>
+                <p
+                  className="logo"
+                  style={{
+                    color: colors.pokeGold,
+                    paddingTop: "25px",
+                    paddingBottom: "25px",
+                  }}
+                >
+                  POKEMON
+                </p>
+              </Link>
+            </NavbarBrand>
+            <NavbarToggler onClick={toggleNavbar} className="mr-2" />
+            <Collapse isOpen={!collapsed} navbar style={{ flexGrow: "0" }}>
+              <Nav navbar>
+                <NavItem>
+                  <Link to="/mypokemon" style={{ textDecoration: "none" }}>
+                    <p
+                      className="mypoke"
+                      style={{ fontSize: "16px", color: colors.pokeGold }}
+                    >
+                      My Pokemon
+                    </p>
+                    {/* <div
+                      style={{
+                        width: "100px",
+                        height: "50px",
+                        background: "#FFDE00",
+                        border: "2px solid #3B4CCA",
+                        boxSizing: "border-box",
+                        borderRadius: "25px",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        display: "flex",
+                      }}
+                    >
+                      <Icon
+                        style={{ width: "30px", height: "30px" }}
+                        icon={backpack28Filled}
+                      />
+                    </div> */}
+                  </Link>
+                </NavItem>
+              </Nav>
+            </Collapse>
+          </Navbar>{" "}
+          {/* <div style={navbar}></div> */}
           <Switch>
             <Route exact path="/">
               <PokemonList />
