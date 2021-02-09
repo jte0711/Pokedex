@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useContext } from "react";
 import { getAllPokemons } from "../api/pokeApi";
 import Card from "../components/Card";
+import MbCard from "../components/MbCard";
 import PokeContext from "../config/pokeContext";
+import useIsMobile from "../hooks/useIsMobile";
 
 const PokemonList = () => {
   const context = useContext(PokeContext);
   const [pokeList, setPokeList] = useState();
+  const isMb = useIsMobile(426);
 
   const checkOwned = (data) => {
     let myPoke = context.ownedPokemon;
@@ -39,11 +42,21 @@ const PokemonList = () => {
         paddingRight: "25px",
       }}
     >
-      <div style={{ columnCount: 5 }}>
+      <div
+        style={{
+          columnWidth: isMb ? "120px" : "260px",
+          columnFill: "auto",
+          columnCount: 5,
+        }}
+      >
         {pokeList
-          ? pokeList.map((data) => (
-              <Card name={data.name} apiUrl={data.url} owned={data.owned} />
-            ))
+          ? pokeList.map((data) => {
+              return isMb ? (
+                <MbCard name={data.name} apiUrl={data.url} owned={data.owned} />
+              ) : (
+                <Card name={data.name} apiUrl={data.url} owned={data.owned} />
+              );
+            })
           : null}
       </div>
     </div>

@@ -28,7 +28,9 @@ const WideCard = (props) => {
   }, [props]);
 
   return (
-    <div style={isMb ? mbCard : card}>
+    <div
+      style={isMb ? { ...card, width: "100%" } : { ...card, width: "31.25rem" }}
+    >
       <div
         style={{
           display: "flex",
@@ -108,14 +110,9 @@ const pad = {
 const card = {
   display: "flex",
   flexDirection: "row",
-  width: "31.25rem",
   height: "150px",
   backgroundColor: "white",
   marginBottom: "10px",
   borderRadius: "10px",
-};
-const mbCard = {
-  ...card,
-  width: "100%",
 };
 export default WideCard;

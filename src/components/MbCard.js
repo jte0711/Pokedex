@@ -50,7 +50,9 @@ const MbCard = (props) => {
         <img src={imageUrl} />
       </div>
       <div>
-        <p style={{ margin: "0px" }}>{props.name}</p>
+        <p style={{ margin: "0px" }}>
+          {props.name.charAt(0).toUpperCase() + props.name.slice(1)}
+        </p>
       </div>
     </div>
   );
