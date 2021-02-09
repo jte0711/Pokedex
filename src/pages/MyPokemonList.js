@@ -7,7 +7,6 @@ const MyPokemonList = () => {
   const context = useContext(PokeContext);
 
   useEffect(() => {
-    console.log("test");
     setPokeList(context.myPokemon);
   }, [context]);
 

@@ -39,7 +39,7 @@ const PokemonDetails = (props) => {
 
   const initFlTxt = (data) => {
     getPokeSpecies(data.name, data.url).then((res) => {
-      setFlavourText(res.flavor_text_entries[0].flavor_text);
+      setFlavourText(res);
     });
   };
 

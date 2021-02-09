@@ -11,10 +11,11 @@ const Card = (props) => {
   const goToPokemon = () => {
     history.push("/pokemon/" + props.name);
   };
-  const getDeets = async () => {
-    const pokeDeets = await getPokemon(props.name);
-    setImageUrl(pokeDeets.sprites.front_default); //url
-    setType(pokeDeets.types); //list, check api call
+  const getDeets = () => {
+    getPokemon(props.name).then((res) => {
+      setImageUrl(res.sprites.front_default); //url
+      setType(res.types);
+    }); //list, check api call});
   };
 
   useEffect(() => {
