@@ -4,7 +4,7 @@ import PokemonDetails from "./pages/PokemonDetails";
 import PokemonList from "./pages/pokemonList";
 import MyPokemonList from "./pages/MyPokemonList";
 import PokeContext from "./config/pokeContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { colors } from "./config/color";
 import { Icon } from "@iconify/react";
 import backpack28Filled from "@iconify/icons-fluent/backpack-28-filled";
@@ -16,6 +16,7 @@ import {
   NavbarToggler,
   NavItem,
 } from "reactstrap";
+import { catchPokemon, getMyPokemon, releasePokemon } from "./api/myPoke";
 
 function App() {
   const [myPokemon, setMyPokemon] = useState([]);
@@ -23,14 +24,32 @@ function App() {
   const [collapsed, setCollapsed] = useState(true);
 
   const toggleNavbar = () => setCollapsed(!collapsed);
+
+  useEffect(() => {
+    let temp = getMyPokemon();
+    setMyPokemon(temp);
+
+    let tempOwn = ownedPokemon;
+    for (let i = 0; i < temp.length; i++) {
+      if (temp[i] in tempOwn) {
+        tempOwn[temp[i]] += 1;
+        continue;
+      }
+      tempOwn[temp[i]] = 1;
+    }
+    setOwnedPokemon(tempOwn);
+  }, []);
+
   return (
     <PokeContext.Provider
       value={{
         myPokemon: myPokemon,
         setMyPokemon: (newData) => {
+          catchPokemon(newData);
           setMyPokemon([...myPokemon, newData]);
         },
         releasePokemon: (name, nickname) => {
+          releasePokemon({ name: name, nickname: nickname });
           let temp = myPokemon;
           for (let i = 0; i < myPokemon.length; i++) {
             if (myPokemon[i].nickname == nickname) {
@@ -40,7 +59,7 @@ function App() {
           }
           let nCount = ownedPokemon[name] - 1;
           setMyPokemon(temp);
-          setOwnedPokemon(Object.assign({}, ownedPokemon, { [name]: nCount });
+          setOwnedPokemon(Object.assign({}, ownedPokemon, { [name]: nCount }));
         },
         ownedPokemon: ownedPokemon,
         setOwnedPokemon: (newData) => {
