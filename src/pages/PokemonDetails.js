@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPokemon, getPokeMoves, getPokeSpecies } from "../api/pokeApi";
 import PokeType from "../components/PokeType";
-import { typeColor } from "../config/color";
 import PokeContext from "../config/pokeContext";
 import isMobile from "../hooks/useIsMobile";
 
@@ -45,9 +44,6 @@ const PokemonDetails = (props) => {
   };
 
   const initData = () => {
-    // const pokeDeets = await getPokemon(pokeId);
-    // setPokemon(pokeDeets);
-
     getPokemon(pokeId).then(async (res) => {
       setPokemon(res);
       let temp = res.moves;
@@ -65,13 +61,6 @@ const PokemonDetails = (props) => {
 
       setMoves(temp);
     });
-
-    // let temp = pokeDeets.moves;
-    // let maxMove = temp.length;
-    // if (temp.length > 4) {
-    //   maxMove = 4;
-    // }
-    // setMoves(temp.slice(0, maxMove));
   };
 
   useEffect(() => {
@@ -114,6 +103,7 @@ const PokemonDetails = (props) => {
             <img
               src={pokemon.sprites.front_default}
               style={{ maxWidth: "100%", maxHeight: "100%" }}
+              alt={pokeId + " sprite"}
             />
           ) : null}
         </div>
@@ -182,6 +172,7 @@ const PokemonDetails = (props) => {
             borderRadius: "25px",
             marginTop: "40px",
           }}
+          alt={"Catch pokemon"}
           onClick={catchPokemon}
         >
           CATCH

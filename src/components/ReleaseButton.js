@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Icon } from "@iconify/react";
 import signOut from "@iconify/icons-bytesize/sign-out";
 import { colors } from "../config/color";
@@ -6,6 +6,7 @@ import { colors } from "../config/color";
 const ReleaseButton = (props) => {
   return (
     <button
+      alt={"release pokemon"}
       style={icLeave}
       onClick={() => {
         props.clickHandler();

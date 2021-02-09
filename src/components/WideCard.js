@@ -39,7 +39,10 @@ const WideCard = (props) => {
           width: "25%",
         }}
       >
-        <img src={poke ? poke.sprites.front_default : null} />
+        <img
+          src={poke ? poke.sprites.front_default : null}
+          alt={props.name + " sprite"}
+        />
       </div>
       <div
         style={{
@@ -94,12 +97,6 @@ const WideCard = (props) => {
       </div>
     </div>
   );
-};
-
-const hBar = {
-  height: "15px",
-  backgroundColor: colors.hp,
-  borderRadius: "20px",
 };
 
 const pad = {

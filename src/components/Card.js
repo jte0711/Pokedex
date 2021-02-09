@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { getPokemon } from "../api/pokeApi";
-import { typeColor } from "../config/color";
 import PokeType from "./PokeType";
 
 const Card = (props) => {
@@ -15,8 +14,6 @@ const Card = (props) => {
   const getDeets = async () => {
     const pokeDeets = await getPokemon(props.name);
     setImageUrl(pokeDeets.sprites.front_default); //url
-    //setImageUrl(pokeDeets.sprites.other["official-artwork"].front_default); //url
-
     setType(pokeDeets.types); //list, check api call
   };
 
@@ -68,7 +65,7 @@ const Card = (props) => {
       >
         <img
           src={imageUrl}
-          alt="Ivysaur sprite"
+          alt={props.name + " sprite"}
           style={{
             maxWidth: "100%",
             maxHeight: "100%",

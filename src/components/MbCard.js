@@ -47,7 +47,7 @@ const MbCard = (props) => {
         {props.owned}
       </div>
       <div>
-        <img src={imageUrl} />
+        <img src={imageUrl} alt={props.name + " sprite"} />
       </div>
       <div>
         <p style={{ margin: "0px" }}>

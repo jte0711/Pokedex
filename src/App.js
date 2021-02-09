@@ -6,8 +6,6 @@ import MyPokemonList from "./pages/MyPokemonList";
 import PokeContext from "./config/pokeContext";
 import { useEffect, useState } from "react";
 import { colors } from "./config/color";
-import { Icon } from "@iconify/react";
-import backpack28Filled from "@iconify/icons-fluent/backpack-28-filled";
 import {
   Collapse,
   Nav,
@@ -121,30 +119,11 @@ function App() {
                     >
                       My Pokemon
                     </p>
-                    {/* <div
-                      style={{
-                        width: "100px",
-                        height: "50px",
-                        background: "#FFDE00",
-                        border: "2px solid #3B4CCA",
-                        boxSizing: "border-box",
-                        borderRadius: "25px",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        display: "flex",
-                      }}
-                    >
-                      <Icon
-                        style={{ width: "30px", height: "30px" }}
-                        icon={backpack28Filled}
-                      />
-                    </div> */}
                   </Link>
                 </NavItem>
               </Nav>
             </Collapse>
-          </Navbar>{" "}
-          {/* <div style={navbar}></div> */}
+          </Navbar>
           <Switch>
             <Route exact path="/Pokedex">
               <PokemonList />
@@ -162,14 +141,4 @@ function App() {
   );
 }
 
-const navbar = {
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-between",
-  alignItems: "center",
-  paddingLeft: "25px",
-  paddingRight: "25px",
-  marginBottom: "50px",
-  backgroundColor: colors.navbar,
-};
 export default App;
