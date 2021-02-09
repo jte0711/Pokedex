@@ -4,12 +4,13 @@ import { getPokemon, getPokeMoves, getPokeSpecies } from "../api/pokeApi";
 import PokeType from "../components/PokeType";
 import { typeColor } from "../config/color";
 import PokeContext from "../config/pokeContext";
+import isMobile from "../hooks/useIsMobile";
 
 const PokemonDetails = (props) => {
   const [moves, setMoves] = useState();
   const [pokemon, setPokemon] = useState();
   const [flavourText, setFlavourText] = useState();
-  const [isMb, setIsMb] = useState(false);
+  const isMb = isMobile();
   const { pokeId } = useParams();
   const context = useContext(PokeContext);
 
@@ -88,11 +89,10 @@ const PokemonDetails = (props) => {
         display: "flex",
         flexDirection: isMb ? "column" : "row",
         maxWidth: isMb ? null : "50%",
-        alignItems: isMb ? "center" : null,
         zIndex: 1,
         backgroundColor: "white",
         borderRadius: "10px",
-        margin: "auto",
+        margin: isMb ? "25px" : "auto",
       }}
     >
       <div
