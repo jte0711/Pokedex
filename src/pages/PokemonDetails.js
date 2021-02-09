@@ -10,7 +10,7 @@ const PokemonDetails = (props) => {
   const [moves, setMoves] = useState();
   const [pokemon, setPokemon] = useState();
   const [flavourText, setFlavourText] = useState();
-  const isMb = isMobile();
+  const isMb = isMobile(769);
   const { pokeId } = useParams();
   const context = useContext(PokeContext);
 

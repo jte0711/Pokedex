@@ -4,10 +4,12 @@ import { colors } from "../config/color";
 import PokeContext from "../config/pokeContext";
 import PokeType from "./PokeType";
 import ReleaseButton from "./ReleaseButton";
+import useIsMobile from "../hooks/useIsMobile";
 
 const WideCard = (props) => {
   const [type, setType] = useState([]);
   const [poke, setPoke] = useState();
+  const isMb = useIsMobile(426);
   const context = useContext(PokeContext);
 
   const releaseHandler = () => {
@@ -26,7 +28,7 @@ const WideCard = (props) => {
   }, [props]);
 
   return (
-    <div style={card}>
+    <div style={isMb ? mbCard : card}>
       <div
         style={{
           display: "flex",
@@ -106,7 +108,7 @@ const pad = {
 const card = {
   display: "flex",
   flexDirection: "row",
-  width: "500px",
+  width: "31.25rem",
   height: "150px",
   backgroundColor: "white",
   marginBottom: "10px",

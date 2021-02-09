@@ -1,11 +1,11 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 
-const useIsMobile = () => {
+const useIsMobile = (minSize) => {
   const [isMb, setIsMb] = useState(false);
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
-    setIsMb(width <= 768);
+    setIsMb(width <= minSize);
   }, [width]);
   useLayoutEffect(() => {
     function updateSize() {
