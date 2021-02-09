@@ -9,6 +9,7 @@ const PokemonDetails = (props) => {
   const [moves, setMoves] = useState();
   const [pokemon, setPokemon] = useState();
   const [flavourText, setFlavourText] = useState();
+  const [isMb, setIsMb] = useState(false);
   const { pokeId } = useParams();
   const context = useContext(PokeContext);
 
@@ -67,9 +68,9 @@ const PokemonDetails = (props) => {
     <div
       style={{
         display: "flex",
-        flexDirection: "row",
-        width: "50%",
-        height: "447px",
+        flexDirection: isMb ? "column" : "row",
+        maxWidth: isMb ? null : "50%",
+        alignItems: isMb ? "center" : null,
         zIndex: 1,
         backgroundColor: "white",
         borderRadius: "10px",
@@ -80,7 +81,7 @@ const PokemonDetails = (props) => {
         style={{
           display: "flex",
           flexDirection: "column",
-          width: "40%",
+          width: isMb ? null : "40%",
           height: "100%",
           alignItems: "center",
           paddingLeft: "20px",
@@ -89,7 +90,6 @@ const PokemonDetails = (props) => {
       >
         <div
           style={{
-            maxHeight: "100px",
             width: "100%",
             display: "flex",
             paddingTop: "20px",
@@ -176,7 +176,7 @@ const PokemonDetails = (props) => {
       </div>
       <div
         style={{
-          width: "60%",
+          width: isMb ? null : "60%",
           height: "100%",
           paddingLeft: "20px",
           paddingRight: "20px",

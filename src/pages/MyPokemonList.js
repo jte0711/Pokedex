@@ -27,7 +27,6 @@ const MyPokemonList = () => {
               nickname={data.nickname}
               name={data.name}
               apiUrl={data.url}
-              mb={true}
             />
           ))
         : null}
