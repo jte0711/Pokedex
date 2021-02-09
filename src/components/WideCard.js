@@ -11,7 +11,6 @@ const WideCard = (props) => {
   const context = useContext(PokeContext);
 
   const releaseHandler = () => {
-    console.log("releasing");
     context.releasePokemon(props.name, props.nickname);
   };
 
